@@ -1,0 +1,21 @@
+nav {
+  @apply relative flex items-center justify-between h-8;
+  -webkit-app-region: drag;
+}
+
+.right {
+  @apply flex items-center;
+}
+
+#window-controls {
+  @apply absolute right-0 flex items-center;
+}
+
+#window-controls button {
+  @apply hover:bg-neutral-200 transition-colors w-8 aspect-square grid place-content-center dark:hover:text-neutral-800;
+  -webkit-app-region: no-drag;
+}
+
+#window-controls button.close {
+  @apply hover:bg-red-400 hover:text-white dark:hover:text-white;
+}

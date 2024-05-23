@@ -1,0 +1,28 @@
+<nav>
+  <div class="left">
+    <ng-content select="left"></ng-content>
+  </div>
+
+  <div class="center">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="right">
+    <ng-content select="right"></ng-content>
+  </div>
+  <div id="window-controls">
+    <button id="minimize" (click)="minimize()">
+      <lucide-angular name="minus" size="16" />
+    </button>
+
+    @if (!disableMaximize()) {
+    <button id="maximize" (click)="maximize()">
+      <lucide-angular name="square" size="12" />
+    </button>
+    }
+
+    <button id="close" (click)="close()" class="close">
+      <lucide-angular name="x" size="18" />
+    </button>
+  </div>
+</nav>

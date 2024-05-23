@@ -10,14 +10,19 @@
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/renderer",
+        "outputPath": {
+          "base": "dist/apps/renderer",
+          "browser": "",
+          "server": "server",
+          "media": "media"
+        },
         "index": "apps/renderer/src/index.html",
         "browser": "apps/renderer/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/renderer/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
+        "inlineStyleLanguage": "css",
         "assets": ["apps/renderer/src/favicon.ico", "apps/renderer/src/assets"],
-        "styles": ["apps/renderer/src/styles.scss"],
+        "styles": ["apps/renderer/src/styles.css"],
         "scripts": []
       },
       "configurations": {
@@ -54,7 +59,10 @@
           "buildTarget": "renderer:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/renderer/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

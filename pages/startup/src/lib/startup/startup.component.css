@@ -1,0 +1,23 @@
+#startup {
+  @apply h-full grid grid-rows-[min-content,1fr] bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-100 grid-flow-row;
+}
+
+.top {
+  @apply w-full;
+}
+
+.content {
+  @apply grid grid-cols-[270px,1fr];
+}
+
+.left {
+  @apply pr-3 overflow-hidden max-h-[calc(100vh-2rem)] overflow-y-auto;
+}
+
+.right {
+  @apply flex flex-col gap-5 px-5 items-center justify-center -mt-8;
+}
+
+section {
+  @apply border bg-white dark:bg-stone-900 w-full px-3 py-2 rounded;
+}

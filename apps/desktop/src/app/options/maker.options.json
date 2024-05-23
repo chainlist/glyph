@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../../../node_modules/nx-electron/src/validation/maker.schema.json",
+  "asar": true,
+  "icon": "apps/desktop/src/assets/icon.ico",
+  "win": {
+    "target": "nsis",
+    "icon": "apps/desktop/src/assets/icon.ico"
+  },
+  "nsis": {
+    "installerIcon": "apps/desktop/src/assets/icon.ico",
+    "uninstallerIcon": "apps/desktop/src/assets/icon.ico",
+    "oneClick": false,
+    "perMachine": false,
+    "allowElevation": true,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true
+  },
+  "publish": null
+}

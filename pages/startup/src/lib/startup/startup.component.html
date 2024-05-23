@@ -1,0 +1,29 @@
+<div id="startup">
+  <div class="top">
+    <lib-topbar [disableMaximize]="true">
+      <div ngProjectAs="center">Hello</div>
+    </lib-topbar>
+  </div>
+  <div class="content">
+    <div class="left">
+      <lib-known-workspaces />
+    </div>
+    <div class="right">
+      <section>
+        <p class="flex justify-between items-center">
+          Create a new workspace from scratch
+          <button class="btn">Start</button>
+        </p>
+      </section>
+      <section>
+        <p class="flex justify-between items-center">
+          <span>
+            Open an existing workspace
+            <span class="app-name">Glyph</span> workspace
+          </span>
+          <button class="btn" (click)="open()">Open</button>
+        </p>
+      </section>
+    </div>
+  </div>
+</div>

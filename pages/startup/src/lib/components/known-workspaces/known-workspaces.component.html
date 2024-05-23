@@ -1,0 +1,5 @@
+<ul class="group">
+  @for (item of workspaces(); track $index) {
+  <lib-known-workspace [workspace]="item"></lib-known-workspace>
+  }
+</ul>

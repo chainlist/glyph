@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+
+@layer base {
+  * {
+    @apply min-w-0 select-none;
+  }
+
+  html,
+  body {
+    @apply h-full text-neutral-900 bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-100;
+    font-size: 14px;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply border rounded bg-white dark:bg-neutral-700 dark:shadow-black px-2 py-1 hover:shadow transition-all active:shadow-none;
+  }
+
+  .app-name {
+    @apply font-thin italic;
+  }
+}
+
+html {
+  --scrollbar-bg: transparent;
+  --scrollbar-bar: rgb(107 114 128);
+  --scroolbar-width: thin;
+  --scrollbar-width-px: 6px;
+  --scrollbar-height-px: 10px;
+  --topbar-bg: linear-gradient(
+    90deg,
+    rgba(230, 242, 251, 0.7595413165266106) 30%,
+    rgba(247, 224, 255, 0.7259278711484594) 100%
+  );
+  /* --topbar-bg: linear-gradient(90deg, rgba(230,242,251,0.8883928571428571) 30%, rgba(252,236,215,0.6278886554621849) 68%, rgba(247,224,255,0.7511379551820728) 100%); */
+  --statusbar-bg: var(--topbar-bg);
+  /* --topbar-bg: linear-gradient(90deg, rgba(204,227,245,0.9948354341736695) 18%, rgba(250,203,142,1) 52%, rgba(221,162,241,1) 100%); */
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: var(--scrollbar-width);
+    scrollbar-color: var(--scrollbar-thumb-bg) var(--scrollbar-bg);
+  }
+}
+
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar {
+    width: var(--scrollbar-width-px);
+    height: var(--scrollbar-height-px);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-bar);
+    border-radius: 42px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-bg);
+  }
+}

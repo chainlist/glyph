@@ -1,0 +1,15 @@
+li {
+  @apply hover:bg-rose-100 dark:hover:bg-stone-200 dark:hover:text-neutral-800 rounded-r pl-5 pr-8 py-2 transition-colors relative;
+}
+
+.name {
+  @apply font-normal;
+}
+
+.path {
+  @apply text-sm whitespace-nowrap text-ellipsis overflow-hidden text-neutral-400 italic;
+}
+
+.actions {
+  @apply absolute top-1/2 right-2 -translate-y-1/2 text-neutral-400 hover:text-neutral-800 transition-colors;
+}
