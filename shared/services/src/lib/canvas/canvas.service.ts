@@ -14,8 +14,7 @@ export class CanvasService {
 
   setRoot(root: HTMLElement) {
     this.root.set(root);
-    this.#refreshSize();
-    this.#refreshCenter();
+    this.refresh();
   }
 
   refresh() {

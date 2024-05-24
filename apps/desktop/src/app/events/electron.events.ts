@@ -6,7 +6,7 @@
 import { app, ipcMain } from 'electron';
 import { environment } from '../../environments/environment';
 import { openFolderDialog } from '../api/dialog';
-import { getFileInfo } from '../api/fs';
+import { getFileInfo, getVirtualFileSystem, readDirectory } from '../api/fs';
 import { close, isMaximized, maximize, minimize } from '../api/window';
 import App from '../app';
 
@@ -24,6 +24,8 @@ export default class ElectronEvents {
 
 ElectronEvents.handle('dialog:open-folder', openFolderDialog);
 ElectronEvents.handle('fs:get-file-info', getFileInfo);
+ElectronEvents.handle('fs:get-virtual-file-system', getVirtualFileSystem);
+ElectronEvents.handle('fs:read-directory', readDirectory);
 ElectronEvents.handle('window:minimize', minimize);
 ElectronEvents.handle('window:maximize', maximize);
 ElectronEvents.handle('window:close', close);

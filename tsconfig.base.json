@@ -19,7 +19,8 @@
       "@glyph/startup": ["pages/startup/src/index.ts"],
       "@glyph/stores": ["shared/stores/src/index.ts"],
       "@glyph/ui": ["shared/ui/src/index.ts"],
-      "@glyph/workspace": ["pages/workspace/src/index.ts"]
+      "@glyph/workspace": ["pages/workspace/src/index.ts"],
+      "@glyph/types": ["shared/types/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

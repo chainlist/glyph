@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { openFolderDialog } from './dialog';
-import type { getFileInfo } from './fs';
+import type { getVirtualFileSystem, getFileInfo, readDirectory } from './fs';
 import type { maximize, minimize, close, isMaximized } from './window';
 
 export function exposeFromRenderer<T extends (...args: any) => any>(
@@ -17,7 +17,12 @@ contextBridge.exposeInMainWorld('__GLYPH_API__', {
       exposeFromRenderer<typeof openFolderDialog>('dialog:open-folder'),
   },
   fs: {
+    getVirtualFileSystem: exposeFromRenderer<typeof getVirtualFileSystem>(
+      'fs:get-virtual-file-system'
+    ),
     getFileInfo: exposeFromRenderer<typeof getFileInfo>('fs:get-file-info'),
+    readDirectory:
+      exposeFromRenderer<typeof readDirectory>('fs:read-directory'),
   },
 
   window: {
