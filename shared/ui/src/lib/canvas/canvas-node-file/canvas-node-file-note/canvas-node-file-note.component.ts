@@ -17,6 +17,8 @@ export class CanvasNodeFileNoteComponent {
   node = input.required<JSONCanvasFileNode>();
   content = signal<string>('');
 
+  name = computed(() => this.node().file());
+
   parser = new Marked().use({ breaks: true, gfm: true });
 
   md = computed(() => this.parser.parse(this.content()));

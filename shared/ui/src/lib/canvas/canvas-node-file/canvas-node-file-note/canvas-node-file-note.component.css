@@ -1,3 +1,19 @@
+:host {
+  display: contents;
+}
+
 .canvas-note {
-  @apply h-full overflow-hidden overflow-y-auto px-2 ring-1 bg-slate-200 rounded;
+  @apply h-full overflow-hidden border border-black bg-slate-200 rounded pointer-events-auto p-1;
+}
+
+.scroll-wrapper {
+  @apply h-full overflow-auto px-2;
+}
+
+.canvas-note:hover .filename {
+  @apply text-neutral-600;
+}
+
+.filename {
+  @apply absolute -top-6 left-1 text-sm text-neutral-400 transition-colors;
 }

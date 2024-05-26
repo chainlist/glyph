@@ -6,7 +6,7 @@
 
 @layer base {
   * {
-    @apply min-w-0 select-none;
+    @apply min-w-0 select-none box-border;
   }
 
   html,

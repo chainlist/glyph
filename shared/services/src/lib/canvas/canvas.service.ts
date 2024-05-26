@@ -3,6 +3,7 @@ import { fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { JSONCanvasNode, Point, Rect, Size } from '@glyph/models';
 import { StoreService } from '../store/store.service';
+import { CanvasState } from '@glyph/types';
 
 @Injectable({
   providedIn: 'root',
@@ -60,5 +61,13 @@ export class CanvasService {
     this.scale.set(scale);
     this.offset.x.set(-rectCenter.x());
     this.offset.y.set(-rectCenter.y());
+  }
+
+  /**
+   * Putting multiple states in the parameter will return true if the current state is one of them. (acting as an OR operator)
+   * @param states State name
+   */
+  is(...states: CanvasState[]) {
+    return states.includes(this.store.canvas.state());
   }
 }

@@ -1,4 +1,4 @@
-import { BrowserWindow, shell, screen } from 'electron';
+import { BrowserWindow, shell, screen, dialog } from 'electron';
 import { rendererAppName, rendererAppPort } from './constants';
 import { environment } from '../environments/environment';
 import { join } from 'path';
@@ -112,7 +112,7 @@ export default class App {
           pathname: join(__dirname, '..', rendererAppName, 'index.html'),
           protocol: 'file:',
           slashes: true,
-        })
+        }),
       );
     }
   }
@@ -137,7 +137,7 @@ export default class App {
 
     if (!App.application.isPackaged) {
       window.loadURL(
-        `http://localhost:${rendererAppPort}/#/workspace?root=${workspaceId}`
+        `http://localhost:${rendererAppPort}/#/workspace?root=${workspaceId}`,
       );
       window.webContents.openDevTools({ mode: 'right' });
     } else {
@@ -147,10 +147,30 @@ export default class App {
           protocol: 'file:',
           slashes: true,
           hash: `#/workspace?root=${workspaceId}`,
-        })
+        }),
       );
     }
     App.mainWindow.close();
+
+    window.webContents.on('will-navigate', (event: any, url: string) => {
+      if (url !== window.webContents.getURL()) {
+        const answer = dialog.showMessageBoxSync(window, {
+          title: 'Opening an external link',
+          message:
+            'Careful while opening external link. Do you want to continue?',
+          type: 'question',
+          buttons: ['Yes', 'No'],
+        });
+
+        event.preventDefault();
+
+        if (answer === 1) {
+          return;
+        }
+
+        shell.openExternal(url);
+      }
+    });
 
     window.once('ready-to-show', () => {
       window.maximize();

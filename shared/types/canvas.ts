@@ -1,4 +1,4 @@
-export type CavnasState =
+export type CanvasState =
   | 'panning'
   | 'dragging'
   | 'selecting'

@@ -1,3 +1,6 @@
 <div class="canvas-note">
-  <p [innerHTML]="md()"></p>
+  <div class="filename">{{ name() }}</div>
+  <div class="scroll-wrapper">
+    <div class="prose" [innerHTML]="md()"></div>
+  </div>
 </div>
