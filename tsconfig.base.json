@@ -15,12 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@glyph/models": ["shared/models/src/index.ts"],
       "@glyph/services": ["shared/services/src/index.ts"],
       "@glyph/startup": ["pages/startup/src/index.ts"],
       "@glyph/stores": ["shared/stores/src/index.ts"],
+      "@glyph/types": ["shared/types/index.ts"],
       "@glyph/ui": ["shared/ui/src/index.ts"],
-      "@glyph/workspace": ["pages/workspace/src/index.ts"],
-      "@glyph/types": ["shared/types/index.ts"]
+      "@glyph/workspace": ["pages/workspace/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

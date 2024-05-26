@@ -1,0 +1,15 @@
+<div
+  id="canvas-wrapper"
+  [style.--canvas-transform-center]="centerTransform()"
+  [style.--canvas-transform-scale]="scaleTransform()"
+  [style.--canvas-transform-offset]="offsetTransform()"
+  #root
+>
+  <div id="canvas">
+    @for (node of nodes(); track node.id) {
+
+    <lib-canvas-node [node]="node"></lib-canvas-node>
+
+    }
+  </div>
+</div>

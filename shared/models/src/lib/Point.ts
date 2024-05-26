@@ -28,4 +28,12 @@ export class Point {
   dist(point: Point) {
     return Math.abs(this.x() - point.x()) + Math.abs(this.y() - point.y());
   }
+
+  toString() {
+    return `(${this.x()}, ${this.y()})`;
+  }
+
+  toJSON() {
+    return { x: this.x(), y: this.y() };
+  }
 }

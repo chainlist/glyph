@@ -1,0 +1,11 @@
+<div class="canvas-folder-node" (dblclick)="goto()">
+  <div class="wing"></div>
+  <div class="paper"></div>
+  <div
+    class="body"
+    [style.font-size]="fontSize()"
+    contenteditable="{isEditing}"
+  >
+    {{ file().name }}
+  </div>
+</div>

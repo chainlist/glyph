@@ -1,0 +1,17 @@
+@if (file()) {
+  @if (isDirectory()) {
+    <lib-canvas-node-file-folder
+      [file]="file()!"
+      [node]="node()"
+    ></lib-canvas-node-file-folder>
+  } @else {
+    <lib-canvas-node-file-note
+      [file]="file()!"
+      [node]="node()"
+    ></lib-canvas-node-file-note>
+  }
+} @else {
+  <lib-canvas-node-file-not-found
+    [node]="node()"
+  ></lib-canvas-node-file-not-found>
+}

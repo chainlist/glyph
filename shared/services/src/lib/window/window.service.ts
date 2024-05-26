@@ -5,25 +5,29 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class WindowService {
-  api = (window as any).__GLYPH_API__.window;
+  #api = (window as any).__GLYPH_API__.window;
 
   minimize() {
-    return this.api.minimize();
+    return this.#api.minimize();
   }
 
   maximize(): Promise<boolean> {
-    return this.api.maximize();
+    return this.#api.maximize();
   }
 
   close() {
-    return this.api.close();
+    return this.#api.close();
   }
 
   isMaximized(): Promise<boolean> {
-    return this.api.isMaximized();
+    return this.#api.isMaximized();
   }
 
   openWorkspace(path: string) {
-    return this.api.openWorkspace(path);
+    return this.#api.openWorkspace(path);
+  }
+
+  openExplorer(path: string) {
+    return this.#api.openExplorer(path);
   }
 }

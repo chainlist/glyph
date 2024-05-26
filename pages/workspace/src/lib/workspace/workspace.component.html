@@ -1,3 +1,11 @@
-<lib-topbar>
-  <h1 class="app-name">Glyph</h1>
-</lib-topbar>
+<main>
+  <lib-topbar>
+    <h1 class="app-name text-lg" (click)="open()">{{ workspaceName() }}</h1>
+  </lib-topbar>
+
+  <lib-canvas></lib-canvas>
+</main>
+
+<lib-actions-buttons></lib-actions-buttons>
+
+<lib-loading></lib-loading>

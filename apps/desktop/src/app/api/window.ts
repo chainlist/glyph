@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, shell } from 'electron';
 
 export function minimize() {
   const window = BrowserWindow.getFocusedWindow();
@@ -28,4 +28,8 @@ export function isMaximized() {
   const window = BrowserWindow.getFocusedWindow();
 
   return window.isMaximized();
+}
+
+export function openExplorer(path: string) {
+  shell.openPath(path);
 }

@@ -1,0 +1,11 @@
+#loader-wrapper {
+  @apply absolute top-8 left-0 bottom-0 w-full grid place-content-center;
+}
+
+.loader {
+  @apply flex justify-center items-center;
+}
+
+.loader-text {
+  @apply text-center text-lg font-thin italic;
+}

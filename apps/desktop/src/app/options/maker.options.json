@@ -1,6 +1,5 @@
 {
   "$schema": "../../../../../node_modules/nx-electron/src/validation/maker.schema.json",
-  "asar": true,
   "icon": "apps/desktop/src/assets/icon.ico",
   "win": {
     "target": "nsis",

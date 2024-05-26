@@ -1,0 +1,3 @@
+.canvas-note {
+  @apply h-full overflow-hidden overflow-y-auto px-2 ring-1 bg-slate-200 rounded;
+}

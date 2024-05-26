@@ -1,0 +1,7 @@
+main {
+  @apply grid grid-rows-[auto,1fr] h-full;
+}
+
+h1 {
+  -webkit-app-region: no-drag;
+}

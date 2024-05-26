@@ -18,7 +18,7 @@
 
 @layer components {
   .btn {
-    @apply border rounded bg-white dark:bg-neutral-700 dark:shadow-black px-2 py-1 hover:shadow transition-all active:shadow-none;
+    @apply border rounded bg-white dark:bg-neutral-700 dark:shadow-black px-2 py-1 hover:shadow transition-all active:shadow-none flex justify-center items-center;
   }
 
   .app-name {

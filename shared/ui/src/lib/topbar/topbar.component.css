@@ -1,5 +1,5 @@
 nav {
-  @apply relative flex items-center justify-between h-8;
+  @apply relative flex items-center justify-between h-8 bg-neutral-100 dark:bg-neutral-800;
   -webkit-app-region: drag;
 }
 

@@ -1,0 +1,15 @@
+<div
+  class="canvas-node"
+  [style.width]="width() + 'px'"
+  [style.height]="height() + 'px'"
+  [style.transform]="transform()"
+>
+  @switch (type()) {
+    @case ('file') {
+      <lib-canvas-node-file [node]="getFileNode()"></lib-canvas-node-file>
+    }
+    @default {
+      <lib-canvas-node-unknown></lib-canvas-node-unknown>
+    }
+  }
+</div>

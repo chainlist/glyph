@@ -1,0 +1,10 @@
+#canvas-wrapper {
+  @apply h-full overflow-hidden;
+}
+
+#canvas {
+  @apply h-full w-full pointer-events-none;
+  transform-origin: 0 0;
+  transform: var(--canvas-transform-center) var(--canvas-transform-scale)
+    var(--canvas-transform-offset);
+}

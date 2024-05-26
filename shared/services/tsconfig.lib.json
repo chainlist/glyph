@@ -13,5 +13,14 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts"]
+  "include": [
+    "src/**/*.ts",
+    "../stores/src/lib/CanvasStore.ts",
+    "../stores/src/lib/SettingsStore.ts",
+    "../stores/src/lib/WorkspaceStore.ts",
+    "../models/src/lib/KnownWorkspace.ts",
+    "../models/src/lib/Point.ts",
+    "../models/src/lib/Rect.ts",
+    "../models/src/lib/Size.ts"
+  ]
 }

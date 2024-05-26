@@ -1,0 +1,3 @@
+.canvas-node {
+  @apply absolute pointer-events-auto;
+}

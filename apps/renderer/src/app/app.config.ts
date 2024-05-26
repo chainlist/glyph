@@ -8,6 +8,8 @@ import {
   SquareArrowOutDownLeft,
   X,
   EllipsisVertical,
+  FileWarning,
+  Maximize,
 } from 'lucide-angular';
 
 export const appConfig: ApplicationConfig = {
@@ -21,7 +23,9 @@ export const appConfig: ApplicationConfig = {
         X,
         Ellipsis,
         EllipsisVertical,
-      })
+        FileWarning,
+        Maximize,
+      }),
     ),
   ],
 };
