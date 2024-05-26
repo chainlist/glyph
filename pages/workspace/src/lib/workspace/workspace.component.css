@@ -1,5 +1,5 @@
 main {
-  @apply grid grid-rows-[auto,1fr] h-full;
+  @apply grid grid-rows-[auto,1fr,auto] h-full;
 }
 
 h1 {

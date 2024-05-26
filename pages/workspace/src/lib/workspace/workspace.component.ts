@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   ActionsButtonsComponent,
   CanvasComponent,
+  FooterComponent,
   LoadingComponent,
   TopbarComponent,
 } from '@glyph/ui';
@@ -19,6 +20,7 @@ import { StoreService } from 'shared/services/src/lib/store/store.service';
     LoadingComponent,
     CanvasComponent,
     ActionsButtonsComponent,
+    FooterComponent,
   ],
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.css',

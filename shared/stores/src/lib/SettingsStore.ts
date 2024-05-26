@@ -7,4 +7,5 @@ export class SettingsStore {
   theme = signal<string>('default');
   language = signal<string>('en');
   reducedMotion = signal<boolean>(false);
+  displayFilenames = signal<boolean>(true);
 }

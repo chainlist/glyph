@@ -1,6 +1,8 @@
 <div class="canvas-note">
-  <div class="filename">{{ name() }}</div>
+  @if (displayFilenames()) {
+    <div class="filename">{{ name() }}</div>
+  }
   <div class="scroll-wrapper">
-    <div class="prose" [innerHTML]="md()"></div>
+    <lib-markdown-viewer [content]="content()" />
   </div>
 </div>

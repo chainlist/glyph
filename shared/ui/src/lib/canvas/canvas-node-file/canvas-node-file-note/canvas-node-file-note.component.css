@@ -3,7 +3,7 @@
 }
 
 .canvas-note {
-  @apply h-full overflow-hidden border border-black bg-slate-200 rounded pointer-events-auto p-1;
+  @apply h-full overflow-hidden border border-black bg-white rounded pointer-events-auto p-1;
 }
 
 .scroll-wrapper {

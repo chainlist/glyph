@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Marked } from 'marked';
 
 @Component({
   selector: 'lib-markdown-viewer',
@@ -8,4 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './markdown-viewer.component.html',
   styleUrl: './markdown-viewer.component.css',
 })
-export class MarkdownViewerComponent {}
+export class MarkdownViewerComponent {
+  content = input.required<string>();
+  parser = new Marked().use({ breaks: true, gfm: true });
+  markdown = computed(() => this.parser.parse(this.content()));
+}

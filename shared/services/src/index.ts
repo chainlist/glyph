@@ -6,3 +6,4 @@ export * from './lib/loading/loading.service';
 export * from './lib/canvas/canvas.service';
 export * from './lib/store/store.service';
 export * from './lib/board/board.service';
+export * from './lib/search/search.service';
