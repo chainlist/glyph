@@ -1,3 +1,4 @@
+/* eslint-disable no-cond-assign */
 import { DestroyRef, ElementRef, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IEvent } from '@glyph/types';
@@ -6,6 +7,8 @@ import { CanvasService } from '../canvas/canvas.service';
 import { Point } from '@glyph/models';
 import { IdleEventService } from './events/idle-event/idle-event.service';
 import { PanEventService } from './events/pan-event/pan-event.service';
+import { MoveNodeEventService } from './events/move-node/move-node-event.service';
+import { StoreService } from '../store/store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +21,11 @@ export class EventService {
 
   constructor(
     private destroyRef: DestroyRef,
+    private store: StoreService,
     private canvasSvc: CanvasService,
     private idleEvent: IdleEventService,
     private panEvent: PanEventService,
+    private moveNode: MoveNodeEventService,
   ) {}
 
   startListening(ref: HTMLElement) {
@@ -43,10 +48,22 @@ export class EventService {
 
   #guessEvent(event: MouseEvent) {
     const target = event.target as HTMLElement;
+    let nodeRef: HTMLElement | null;
 
     // No matter the node we are hovering we want to drag the canvas if right click is pressed
     if (event.button === 2) {
       this.event.set(this.panEvent);
+    }
+
+    // If we are hovering a node we want to drag it
+    if (event.button === 0 && (nodeRef = target.closest('.canvas-node'))) {
+      const id = nodeRef.dataset['id'];
+      const node = this.store.canvas.nodes().find((n) => n.id() === id);
+
+      if (!node) return;
+
+      this.moveNode.setPayload({ target: node, selectedNodes: [node] });
+      this.event.set(this.moveNode);
     }
   }
 
@@ -68,7 +85,14 @@ export class EventService {
   #onmouseup(e: Event) {
     const event = e as MouseEvent;
     this.event()?.onmouseup(event);
-    this.event.set(this.idleEvent);
+
+    this.#eventCleanup(event);
+
     this.mouseUpSubscription?.unsubscribe();
+  }
+
+  #eventCleanup(event: MouseEvent) {
+    this.event()?.setPayload(undefined);
+    this.event.set(this.idleEvent);
   }
 }

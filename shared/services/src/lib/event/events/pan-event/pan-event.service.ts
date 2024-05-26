@@ -13,4 +13,8 @@ export class PanEventService extends BaseEventService<void> {
   override onmousemove(e: MouseEvent): void {
     this.canvasSvc.pan(e.movementX, e.movementY);
   }
+
+  override onmouseup(): void {
+    this.canvasSvc.unselectAll();
+  }
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JSONCanvasFileNode, JSONCanvasNode } from '@glyph/models';
 import { CanvasNodeFileComponent } from '../canvas-node-file/canvas-node-file.component';
 import { CanvasNodeUnknownComponent } from '../canvas-node-unknown/canvas-node-unknown.component';
+import { CanvasService } from '@glyph/services';
 
 @Component({
   selector: 'lib-canvas-node',
@@ -17,12 +18,16 @@ export class CanvasNodeComponent {
   id = computed(() => this.node().id());
   type = computed(() => this.node().type());
 
+  selected = computed(() => this.canvasSvc.isSelected(this.node()));
+
   x = computed(() => this.node().rect.coords.x());
   y = computed(() => this.node().rect.coords.y());
   width = computed(() => this.node().rect.size.width());
   height = computed(() => this.node().rect.size.height());
 
   transform = computed(() => `translate(${this.x()}px, ${this.y()}px)`);
+
+  constructor(private canvasSvc: CanvasService) {}
 
   getFileNode() {
     return this.node() as JSONCanvasFileNode;

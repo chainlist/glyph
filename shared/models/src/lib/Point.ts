@@ -9,6 +9,11 @@ export class Point {
     this.y.set(y);
   }
 
+  set(x: number, y: number) {
+    this.x.set(x);
+    this.y.set(y);
+  }
+
   add(point: Point) {
     return new Point(this.x() + point.x(), this.y() + point.y());
   }

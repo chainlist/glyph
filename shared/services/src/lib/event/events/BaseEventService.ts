@@ -6,8 +6,11 @@ export class BaseEventService<T> implements IEvent<T> {
   name: CanvasState;
   payload: WritableSignal<T | undefined> = signal<T | undefined>(undefined);
 
-  constructor(name: CanvasState, payload: T) {
+  constructor(name: CanvasState) {
     this.name = name;
+  }
+
+  setPayload(payload: T): void {
     this.payload.set(payload);
   }
 

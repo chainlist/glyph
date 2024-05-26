@@ -3,6 +3,8 @@
   [style.width]="width() + 'px'"
   [style.height]="height() + 'px'"
   [style.transform]="transform()"
+  [class.selected]="selected()"
+  [attr.data-id]="id()"
 >
   @switch (type()) {
     @case ('file') {

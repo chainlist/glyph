@@ -111,4 +111,26 @@ export class CanvasService {
   is(...states: CanvasState[]) {
     return states.includes(this.store.canvas.state());
   }
+
+  selectAll(nodes: JSONCanvasNode[]) {
+    this.store.canvas.selected.set(nodes.map((node) => node.id()));
+  }
+
+  select(node: JSONCanvasNode) {
+    this.store.canvas.selected.update((s) => [...s, node.id()]);
+  }
+
+  unselect(node: JSONCanvasNode) {
+    this.store.canvas.selected.update((selected) =>
+      selected.filter((id) => id !== node.id()),
+    );
+  }
+
+  unselectAll() {
+    this.store.canvas.selected.set([]);
+  }
+
+  isSelected(node: JSONCanvasNode) {
+    return this.store.canvas.selected().includes(node.id());
+  }
 }
