@@ -18,7 +18,7 @@
         },
         "index": "apps/renderer/src/index.html",
         "browser": "apps/renderer/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/renderer/tsconfig.app.json",
         "inlineStyleLanguage": "css",
         "assets": ["apps/renderer/src/favicon.ico", "apps/renderer/src/assets"],

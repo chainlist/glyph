@@ -1,4 +1,8 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideExperimentalZonelessChangeDetection,
+} from '@angular/core';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { Ellipsis, LucideAngularModule } from 'lucide-angular';
@@ -14,6 +18,7 @@ import {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideExperimentalZonelessChangeDetection(),
     provideRouter(appRoutes, withHashLocation()),
     importProvidersFrom(
       LucideAngularModule.pick({
