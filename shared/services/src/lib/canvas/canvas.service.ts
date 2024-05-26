@@ -31,6 +31,11 @@ export class CanvasService {
     this.#refreshCenter();
   }
 
+  pan(x: number, y: number) {
+    this.offset.x.update((offset) => offset + x);
+    this.offset.y.update((offset) => offset + y);
+  }
+
   #refreshSize() {
     const root = this.root();
     if (!root) return;

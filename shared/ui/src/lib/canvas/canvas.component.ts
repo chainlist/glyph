@@ -6,7 +6,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CanvasService, StoreService } from '@glyph/services';
+import { CanvasService, EventService, StoreService } from '@glyph/services';
 import { CanvasNodeComponent } from './canvas-node/canvas-node.component';
 
 @Component({
@@ -37,9 +37,11 @@ export class CanvasComponent implements OnInit {
   constructor(
     private canvasSvc: CanvasService,
     private store: StoreService,
+    private eventSvc: EventService,
   ) {}
 
   ngOnInit(): void {
     this.canvasSvc.setRoot(this.root().nativeElement);
+    this.eventSvc.startListening(this.root().nativeElement);
   }
 }
