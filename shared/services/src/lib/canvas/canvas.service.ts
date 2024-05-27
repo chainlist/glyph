@@ -32,8 +32,8 @@ export class CanvasService {
   }
 
   pan(x: number, y: number) {
-    this.offset.x.update((offset) => offset + x);
-    this.offset.y.update((offset) => offset + y);
+    this.offset.x.update((offset) => offset + x / this.scale());
+    this.offset.y.update((offset) => offset + y / this.scale());
   }
 
   #refreshSize() {

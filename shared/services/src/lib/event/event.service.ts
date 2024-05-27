@@ -12,6 +12,8 @@ import { StoreService } from '../store/store.service';
 import { SelectNodesService } from './events/select-nodes/select-nodes.service';
 import { BaseEventService } from './events/BaseEventService';
 
+const MOVE_THRESHOLD = 10;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -101,7 +103,7 @@ export class EventService {
       const currentPoint = new Point(event.clientX, event.clientY);
       const downPoint = this.downPoint();
 
-      if (downPoint && downPoint.dist(currentPoint) < 5) return;
+      if (downPoint && downPoint.dist(currentPoint) < MOVE_THRESHOLD) return;
       this.event()?.onmousemove(event);
     });
   }
