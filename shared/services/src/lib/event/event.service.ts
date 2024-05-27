@@ -9,6 +9,8 @@ import { IdleEventService } from './events/idle-event/idle-event.service';
 import { PanEventService } from './events/pan-event/pan-event.service';
 import { MoveNodeEventService } from './events/move-node/move-node-event.service';
 import { StoreService } from '../store/store.service';
+import { SelectNodesService } from './events/select-nodes/select-nodes.service';
+import { BaseEventService } from './events/BaseEventService';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +28,7 @@ export class EventService {
     private idleEvent: IdleEventService,
     private panEvent: PanEventService,
     private moveNode: MoveNodeEventService,
+    private selectNodes: SelectNodesService,
   ) {}
 
   startListening(ref: HTMLElement) {
@@ -35,6 +38,7 @@ export class EventService {
         const event = e as PointerEvent;
         this.downPoint.set(new Point(event.clientX, event.clientY));
         this.#guessEvent(event);
+        this.event()?.onmousedown(event);
 
         this.mouseUpSubscription = fromEvent(document, 'pointerup').subscribe(
           this.#onmouseup.bind(this),
@@ -50,9 +54,10 @@ export class EventService {
     const target = event.target as HTMLElement;
     let nodeRef: HTMLElement | null;
 
-    // No matter the node we are hovering we want to drag the canvas if right click is pressed
-    if (event.button === 2) {
-      this.event.set(this.panEvent);
+    // No matter the node we are hovering we want to drag the canvas if right click is pressed or middle click
+    if ([1, 2].includes(event.button)) {
+      this.#setEvent(this.panEvent);
+      return;
     }
 
     // If we are hovering a node we want to drag it
@@ -62,8 +67,17 @@ export class EventService {
 
       if (!node) return;
 
-      this.moveNode.setPayload({ target: node, selectedNodes: [node] });
-      this.event.set(this.moveNode);
+      this.#setEvent(this.moveNode);
+      this.moveNode.setPayload(node);
+      return;
+    }
+
+    if (event.button === 0 && target.closest('#canvas-wrapper')) {
+      this.#setEvent(this.selectNodes);
+      this.event()?.setPayload(
+        this.canvasSvc.toCoordinates(new Point(event.clientX, event.clientY)),
+      );
+      return;
     }
   }
 
@@ -91,8 +105,14 @@ export class EventService {
     this.mouseUpSubscription?.unsubscribe();
   }
 
-  #eventCleanup(event: MouseEvent) {
+  #eventCleanup(_: MouseEvent) {
     this.event()?.setPayload(undefined);
     this.event.set(this.idleEvent);
+    this.store.canvas.state.set('idle');
+  }
+
+  #setEvent(event: BaseEventService<any>) {
+    this.event.set(event);
+    this.store.canvas.state.set(event.name);
   }
 }

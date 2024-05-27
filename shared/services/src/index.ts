@@ -8,3 +8,4 @@ export * from './lib/store/store.service';
 export * from './lib/board/board.service';
 export * from './lib/search/search.service';
 export * from './lib/event/event.service';
+export * from './lib/event/events/select-nodes/select-nodes.service';

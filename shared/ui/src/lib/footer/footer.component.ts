@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CanvasService, StoreService } from '@glyph/services';
 
 @Component({
   selector: 'lib-footer',
@@ -8,4 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css',
 })
-export class FooterComponent {}
+export class FooterComponent {
+  state = computed(() => this.store.canvas.state());
+
+  constructor(private store: StoreService) {}
+}

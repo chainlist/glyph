@@ -6,10 +6,12 @@
   #root
 >
   <div id="canvas">
+    @if (isSelecting()) {
+      <lib-selecting></lib-selecting>
+    }
+
     @for (node of nodes(); track node.id) {
-
-    <lib-canvas-node [node]="node"></lib-canvas-node>
-
+      <lib-canvas-node [node]="node"></lib-canvas-node>
     }
   </div>
 </div>

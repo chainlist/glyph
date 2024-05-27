@@ -133,4 +133,10 @@ export class CanvasService {
   isSelected(node: JSONCanvasNode) {
     return this.store.canvas.selected().includes(node.id());
   }
+
+  getSelectedNodes() {
+    return this.store.canvas
+      .nodes()
+      .filter((node) => this.store.canvas.selected().includes(node.id()));
+  }
 }

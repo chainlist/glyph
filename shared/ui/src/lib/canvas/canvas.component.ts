@@ -8,11 +8,12 @@ import {
 import { CommonModule } from '@angular/common';
 import { CanvasService, EventService, StoreService } from '@glyph/services';
 import { CanvasNodeComponent } from './canvas-node/canvas-node.component';
+import { SelectingComponent } from './selecting/selecting.component';
 
 @Component({
   selector: 'lib-canvas',
   standalone: true,
-  imports: [CommonModule, CanvasNodeComponent],
+  imports: [CommonModule, CanvasNodeComponent, SelectingComponent],
   templateUrl: './canvas.component.html',
   styleUrl: './canvas.component.css',
 })
@@ -33,6 +34,8 @@ export class CanvasComponent implements OnInit {
 
   nodes = computed(() => this.store.canvas.nodes());
   edges = computed(() => this.store.canvas.edges());
+
+  isSelecting = computed(() => this.canvasSvc.is('selecting'));
 
   constructor(
     private canvasSvc: CanvasService,
