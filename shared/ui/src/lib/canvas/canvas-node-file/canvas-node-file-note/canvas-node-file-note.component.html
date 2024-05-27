@@ -5,4 +5,8 @@
   <div class="scroll-wrapper">
     <lib-markdown-viewer [content]="content()" />
   </div>
+
+  @if (!isActive()) {
+    <lib-blocking-layer [node]="node()" />
+  }
 </div>

@@ -1,7 +1,15 @@
 .canvas-node {
-  @apply absolute pointer-events-auto;
+  @apply absolute pointer-events-auto origin-center;
 }
 
 .selected {
   @apply ring-4 rounded;
+}
+
+.selected:not(.active) {
+  @apply shadow-xl;
+  transform: scale(1.05);
+}
+
+.active {
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JSONCanvasFileNode, JSONCanvasNode } from '@glyph/models';
 import { CanvasNodeFileComponent } from '../canvas-node-file/canvas-node-file.component';
 import { CanvasNodeUnknownComponent } from '../canvas-node-unknown/canvas-node-unknown.component';
-import { CanvasService } from '@glyph/services';
+import { CanvasService, StoreService } from '@glyph/services';
 
 @Component({
   selector: 'lib-canvas-node',
@@ -27,7 +27,12 @@ export class CanvasNodeComponent {
 
   transform = computed(() => `translate(${this.x()}px, ${this.y()}px)`);
 
-  constructor(private canvasSvc: CanvasService) {}
+  isActive = computed(() => this.store.canvas.active() === this.node().id());
+
+  constructor(
+    private canvasSvc: CanvasService,
+    private store: StoreService,
+  ) {}
 
   getFileNode() {
     return this.node() as JSONCanvasFileNode;

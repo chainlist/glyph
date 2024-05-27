@@ -4,11 +4,12 @@ import { IFileInfo } from '@glyph/types';
 import { JSONCanvasFileNode } from '@glyph/models';
 import { StoreService, VFSService } from '@glyph/services';
 import { MarkdownViewerComponent } from '../../../markdown-viewer/markdown-viewer.component';
+import { BlockingLayerComponent } from '../../canvas-node/blocking-layer/blocking-layer.component';
 
 @Component({
   selector: 'lib-canvas-node-file-note',
   standalone: true,
-  imports: [CommonModule, MarkdownViewerComponent],
+  imports: [CommonModule, MarkdownViewerComponent, BlockingLayerComponent],
   templateUrl: './canvas-node-file-note.component.html',
   styleUrl: './canvas-node-file-note.component.css',
 })
@@ -20,6 +21,8 @@ export class CanvasNodeFileNoteComponent {
   name = computed(() => this.node().file());
 
   displayFilenames = computed(() => this.store.settings.displayFilenames());
+
+  isActive = computed(() => this.store.canvas.active() === this.node().id());
 
   constructor(
     private vfsSvc: VFSService,

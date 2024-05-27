@@ -8,5 +8,6 @@ export class CanvasStore {
 
   state = signal<CanvasState>('idle');
   selected = signal<string[]>([]);
+  active = signal<string | null>(null);
   opened = signal<string[]>([]);
 }

@@ -1,10 +1,10 @@
 /* eslint-disable no-cond-assign */
-import { DestroyRef, ElementRef, Injectable, signal } from '@angular/core';
+import { DestroyRef, Injectable, computed, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IEvent } from '@glyph/types';
 import { Subscription, fromEvent } from 'rxjs';
 import { CanvasService } from '../canvas/canvas.service';
-import { Point } from '@glyph/models';
+import { JSONCanvasNode, Point } from '@glyph/models';
 import { IdleEventService } from './events/idle-event/idle-event.service';
 import { PanEventService } from './events/pan-event/pan-event.service';
 import { MoveNodeEventService } from './events/move-node/move-node-event.service';
@@ -20,6 +20,7 @@ export class EventService {
   event = signal<IEvent<any> | undefined>(this.idleEvent);
   downPoint = signal<Point | undefined>(undefined);
   mouseUpSubscription?: Subscription;
+  activeId = computed(() => this.store.canvas.active());
 
   constructor(
     private destroyRef: DestroyRef,
@@ -34,23 +35,30 @@ export class EventService {
   startListening(ref: HTMLElement) {
     fromEvent(ref, 'pointerdown')
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((e) => {
-        const event = e as PointerEvent;
-        this.downPoint.set(new Point(event.clientX, event.clientY));
-        this.#guessEvent(event);
-        this.event()?.onmousedown(event);
-
-        this.mouseUpSubscription = fromEvent(document, 'pointerup').subscribe(
-          this.#onmouseup.bind(this),
-        );
-      });
+      .subscribe(this.#onmousedown.bind(this));
 
     fromEvent(document, 'pointermove')
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(this.#onmousemove.bind(this));
   }
 
-  #guessEvent(event: MouseEvent) {
+  #onmousedown(e: Event) {
+    const event = e as PointerEvent;
+    this.downPoint.set(new Point(event.clientX, event.clientY));
+    const node = this.#guessEvent(event);
+
+    if (node?.id() !== this.activeId()) {
+      this.store.canvas.active.set(null);
+    }
+
+    this.event()?.onmousedown(event);
+
+    this.mouseUpSubscription = fromEvent(document, 'pointerup').subscribe(
+      this.#onmouseup.bind(this),
+    );
+  }
+
+  #guessEvent(event: MouseEvent): JSONCanvasNode | undefined {
     const target = event.target as HTMLElement;
     let nodeRef: HTMLElement | null;
 
@@ -69,7 +77,7 @@ export class EventService {
 
       this.#setEvent(this.moveNode);
       this.moveNode.setPayload(node);
-      return;
+      return node;
     }
 
     if (event.button === 0 && target.closest('#canvas-wrapper')) {
@@ -79,6 +87,8 @@ export class EventService {
       );
       return;
     }
+
+    return;
   }
 
   #onmousemove(e: Event) {
@@ -100,17 +110,18 @@ export class EventService {
     const event = e as MouseEvent;
     this.event()?.onmouseup(event);
 
-    this.#eventCleanup(event);
+    this.#setIdle(event);
 
     this.mouseUpSubscription?.unsubscribe();
   }
 
-  #eventCleanup(_: MouseEvent) {
+  #setIdle(_: MouseEvent) {
     this.event()?.setPayload(undefined);
     this.event.set(this.idleEvent);
     this.store.canvas.state.set('idle');
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   #setEvent(event: BaseEventService<any>) {
     this.event.set(event);
     this.store.canvas.state.set(event.name);
