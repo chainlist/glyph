@@ -3,7 +3,7 @@
     <div class="filename">{{ name() }}</div>
   }
   <div class="scroll-wrapper">
-    <lib-markdown-viewer [content]="content()" />
+    <lib-markdown-viewer [content]="content()" [editable]="isActive()" />
   </div>
 
   @if (!isActive()) {

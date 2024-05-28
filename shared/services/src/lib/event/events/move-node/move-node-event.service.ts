@@ -1,18 +1,22 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { BaseEventService } from '../BaseEventService';
 import { JSONCanvasNode } from '@glyph/models';
 import { CanvasService } from '../../../canvas/canvas.service';
 import { WorkspaceService } from '../../../workspace/workspace.service';
+import { StoreService } from '../../../store/store.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoveNodeEventService extends BaseEventService<JSONCanvasNode> {
+  private store = inject(StoreService);
+  private canvasSvc = inject(CanvasService);
+
   scale = computed(() => this.canvasSvc.scale());
   hasMove = signal<boolean>(false);
   nodes = signal<JSONCanvasNode[]>([]);
 
-  constructor(private canvasSvc: CanvasService) {
+  constructor() {
     super('dragging');
   }
 
@@ -24,7 +28,7 @@ export class MoveNodeEventService extends BaseEventService<JSONCanvasNode> {
       if (e.ctrlKey) {
         this.nodes.set([payload]);
       } else {
-        this.nodes.set(this.canvasSvc.getSelectedNodes());
+        this.nodes.set(this.store.canvas.selectedNodes());
       }
     } else {
       this.nodes.set([payload]);

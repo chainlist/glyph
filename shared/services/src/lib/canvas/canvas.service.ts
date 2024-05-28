@@ -1,9 +1,16 @@
 import { Injectable, signal } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { JSONCanvasNode, Point, Rect, Size } from '@glyph/models';
+import {
+  JSONCanvasEdge,
+  JSONCanvasNode,
+  Point,
+  Rect,
+  Size,
+} from '@glyph/models';
 import { StoreService } from '../store/store.service';
-import { CanvasState } from '@glyph/types';
+import { CanvasState, IJSONCanvasEdgeSide } from '@glyph/types';
+import * as uuid from 'short-uuid';
 
 @Injectable({
   providedIn: 'root',
@@ -76,22 +83,6 @@ export class CanvasService {
     point.y.update((y) => (y - centerY - offsetY - rectTop) / scale);
 
     return point;
-
-    // // Reajusting the point to the center of the canvas
-    // point.x.update((x) => x - this.center.x());
-    // point.y.update((y) => y - this.center.y());
-
-    // // Removing the offset from the point
-    // point.x.update((x) => x - this.offset.x() * this.scale());
-    // point.y.update((y) => y - this.offset.y() * this.scale());
-
-    // // Reajusting the point to the top left of the canvas
-    // point.x.update((x) => x - rect.left);
-    // point.y.update((y) => y - rect.top);
-
-    // // Reajusting the point to the scale
-    // point.x.update((x) => x / this.scale());
-    // point.y.update((y) => y / this.scale());
   }
 
   fit(nodes: JSONCanvasNode[] = this.store.canvas.nodes()) {
@@ -138,5 +129,32 @@ export class CanvasService {
     return this.store.canvas
       .nodes()
       .filter((node) => this.store.canvas.selected().includes(node.id()));
+  }
+
+  connect(
+    from: JSONCanvasNode,
+    fromEdge: IJSONCanvasEdgeSide,
+    to: JSONCanvasNode,
+    toEdge: IJSONCanvasEdgeSide,
+  ) {
+    this.store.canvas.edges.update((edges) => [
+      ...edges,
+      new JSONCanvasEdge({
+        id: uuid.generate(),
+        fromNode: from.id(),
+        toNode: to.id(),
+        fromSide: fromEdge,
+        toSide: toEdge,
+        toEnd: 'arrow',
+      }),
+    ]);
+  }
+
+  disconnect(from: JSONCanvasEdge, to: JSONCanvasEdge) {
+    this.store.canvas.edges.update((edges) =>
+      edges.filter(
+        (edge) => edge.fromNode() !== from.id() && edge.toNode() !== to.id(),
+      ),
+    );
   }
 }

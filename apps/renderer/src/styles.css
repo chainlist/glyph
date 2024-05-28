@@ -14,6 +14,10 @@
     @apply h-full text-neutral-900 bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-100;
     font-size: 14px;
   }
+
+  [contenteditable] {
+    @apply outline-none;
+  }
 }
 
 @layer components {

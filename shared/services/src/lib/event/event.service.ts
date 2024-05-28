@@ -26,6 +26,8 @@ const MOVE_THRESHOLD = 10;
 export class EventService {
   private destroyRef = inject(DestroyRef);
   private store = inject(StoreService);
+
+  /** EVENTS LIST **/
   private canvasSvc = inject(CanvasService);
   private idleEvent = inject(IdleEventService);
   private panEvent = inject(PanEventService);
@@ -55,6 +57,9 @@ export class EventService {
 
     if (node?.id() !== this.activeId()) {
       this.store.canvas.active.set(null);
+    } else {
+      this.#setIdle(e as MouseEvent);
+      return;
     }
 
     this.event()?.onmousedown(event);

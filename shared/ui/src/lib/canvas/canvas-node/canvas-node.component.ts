@@ -27,6 +27,13 @@ export class CanvasNodeComponent {
 
   transform = computed(() => `translate(${this.x()}px, ${this.y()}px)`);
 
+  shouldHover = computed(
+    () =>
+      !this.isActive() &&
+      this.selected() &&
+      this.store.canvas.state() !== 'dragging',
+  );
+
   isActive = computed(() => this.store.canvas.active() === this.node().id());
 
   constructor(

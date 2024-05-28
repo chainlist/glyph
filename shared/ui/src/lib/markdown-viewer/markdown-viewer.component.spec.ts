@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MarkdownViewerComponent } from './markdown-viewer.component';
+import { signal } from '@angular/core';
 
 describe('MarkdownViewerComponent', () => {
   let component: MarkdownViewerComponent;
@@ -12,6 +13,7 @@ describe('MarkdownViewerComponent', () => {
 
     fixture = TestBed.createComponent(MarkdownViewerComponent);
     component = fixture.componentInstance;
+    component.content = signal('test');
     fixture.detectChanges();
   });
 
