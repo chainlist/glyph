@@ -1,5 +1,11 @@
 /* eslint-disable no-cond-assign */
-import { DestroyRef, Injectable, computed, signal } from '@angular/core';
+import {
+  DestroyRef,
+  Injectable,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IEvent } from '@glyph/types';
 import { Subscription, fromEvent } from 'rxjs';
@@ -18,21 +24,19 @@ const MOVE_THRESHOLD = 10;
   providedIn: 'root',
 })
 export class EventService {
+  private destroyRef = inject(DestroyRef);
+  private store = inject(StoreService);
+  private canvasSvc = inject(CanvasService);
+  private idleEvent = inject(IdleEventService);
+  private panEvent = inject(PanEventService);
+  private moveNode = inject(MoveNodeEventService);
+  private selectNodes = inject(SelectNodesService);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   event = signal<IEvent<any> | undefined>(this.idleEvent);
   downPoint = signal<Point | undefined>(undefined);
   mouseUpSubscription?: Subscription;
   activeId = computed(() => this.store.canvas.active());
-
-  constructor(
-    private destroyRef: DestroyRef,
-    private store: StoreService,
-    private canvasSvc: CanvasService,
-    private idleEvent: IdleEventService,
-    private panEvent: PanEventService,
-    private moveNode: MoveNodeEventService,
-    private selectNodes: SelectNodesService,
-  ) {}
 
   startListening(ref: HTMLElement) {
     fromEvent(ref, 'pointerdown')
